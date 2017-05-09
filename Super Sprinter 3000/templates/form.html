@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% if story_id %}
+    <title>Super Sprinter 3000 - Edit Story</title>
+    {% else %}
+    <title>Super Sprinter 3000 - Add new Story</title>
+    {% endif %}
+</head>
+
+<body>
+    {% if story_id %}
+    <h1>User Story manager - Edit Story</h1>
+    {% else %}
+    <h1>User Story manager - Add new Story</h1>
+    {% endif %}
+    <form {% if story_id %} action="{{ url_for('update') }}" {% else %} action="{{ url_for('create') }}" {% endif %} method="POST">
+        {% if story_id %}
+        <label for="ID">ID:</label>
+        <input type="text" name="story_id" id="ID" value="{{ story_id }}" size="1" readonly> {% endif %}
+        <label for="title">Story title</label>
+        <p><input type="text" name="title" id="title" {% if story_id %} value="{{ line[1] }}" {% endif %}></p>
+        <label for="userstory">User Story</label>
+        <p><textarea rows="5" name="userstory" id="userstory">{% if story_id %} {{ line[2] }} {% endif %}</textarea></p>
+        <label for="criteria">Acceptance criteria</label>
+        <p><textarea rows="5" name="criteria" id="criteria">{% if story_id %} {{ line[3] }} {% endif %}</textarea></p>
+        <label for="value">Business value</label>
+        <p><input type="number" min="100" max="1500" step="100" name="value" id="value" {% if story_id %} value="{{ line[4] }}"
+                {% endif %}></p>
+        <label for="time">Estimation (h)</label>
+        <p><input type="number" min="0.5" max="40" step="0.5" name="time" id="time" {% if story_id %} value="{{ line[5] }}"
+                {% endif %}></p>
+        <label for="status">Status</label>
+        <select name="status" id="status" {% if story_id %} value="{{ line[6] }}" {% endif %}>
+            <option value="Planning">Planning</option>
+            <option value="TODO">TODO</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Review">Review</option>
+            <option value="Done">Done</option>
+        </select>
+        <input type="submit" {% if story_id %} value="Update" name="update" {% else %} value="Create" name="create" {% endif %}>
+    </form>
+</body>
+
+</html>

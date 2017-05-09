@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Super Sprinter 3000</title>
+</head>
+
+<body>
+    <h1>User Story Manager</h1>
+    <form action="http://127.0.0.1:5000/story">
+        <input type="submit" value="Add a new User Story">
+    </form>
+    <table style="width:100%">
+        <tr>
+            <th>ID</th>
+            <th>Story Title</th>
+            <th>User Story</th>
+            <th>Acceptance Criteria</th>
+            <th>Business Value</th>
+            <th>Estimation</th>
+            <th>Status</th>
+            <th> </th>
+            <th> </th>
+        </tr>
+        {% for row in contents %}
+        <form method="GET">
+            <tr>
+                <td>{{ row[0] }}</td>
+                {% for item in row[1:] %}
+                <td>{{ item }}</td>
+                {% endfor %}
+                <td>
+                    <input type="image" src="https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/pen-512.png" width="20"
+                        height="20" alt="Edit" name="editbutton" formaction="{{ url_for('story', story_id=row[0]) }}">
+                </td>
+                <td>
+                    <input type="image" src="https://cdn3.iconfinder.com/data/icons/cleaning-icons/512/Trash_Can-512.png" width="25" height="25"
+                        alt="Delete" name="deletebutton" formaction="{{ url_for('delete', story_id=row[0]) }}">
+                </td>
+            </tr>
+        </form>
+        {% endfor %}
+    </table>
+
+</body>
+
+</html>
